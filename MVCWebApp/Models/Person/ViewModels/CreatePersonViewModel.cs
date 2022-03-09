@@ -9,15 +9,17 @@ namespace MVCWebApp.Models.Person.ViewModels
     public class CreatePersonViewModel
     {
         [Required]
-        [StringLength(40, MinimumLength = 3)]
-
+        [StringLength(40, MinimumLength = 2)]
         public string Name { get; set; }
-        [Required]
-        [StringLength(30, MinimumLength = 1)]
 
-        public string City { get; set; }
         [Required]
-        [StringLength(15, MinimumLength = 8)]
+        [StringLength(30, MinimumLength = 2)]
+        public string City { get; set; }
+
+        [Required]
+        [RegularExpression(@"[\d]+\-?[\d]+", 
+            ErrorMessage = "Please enter a valid phone number! Only numbers and at most one '-'")]
+        [StringLength(15, MinimumLength = 7)]
         public string PhoneNumber { get; set; }
 
         public CreatePersonViewModel() {}

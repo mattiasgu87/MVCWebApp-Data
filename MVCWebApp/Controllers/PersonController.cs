@@ -35,14 +35,20 @@ namespace MVCWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(CreatePersonViewModel CreateViewModel) // change to only create later
+        public IActionResult Create(CreatePersonViewModel CreateViewModel)
         {
-            _personRepository.Add(CreateViewModel);
+            if (ModelState.IsValid)
+            {
+
+                _personRepository.Add(CreateViewModel);
+
+                return RedirectToAction(nameof(Index));
+            }
 
             CombinedPersonViewModel model = new CombinedPersonViewModel();
             model.PersonList = _personRepository.GetAllPersons();
 
-            return View(model);
+            return View(nameof(Index), model);
         }
 
         public IActionResult Delete(int id)
