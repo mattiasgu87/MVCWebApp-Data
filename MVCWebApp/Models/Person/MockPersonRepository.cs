@@ -14,8 +14,7 @@ namespace MVCWebApp.Models.Person
         public MockPersonRepository()
         {
             Person p1 = new Person { Name = "John Doe", City = "New York", PhoneNumber = "324432234", ID = GetNewID() };
-            Person p2 = new Person { Name = "Jane Doe", City = "Las Vegas", PhoneNumber = "3453455433", ID= GetNewID()
-    };
+            Person p2 = new Person { Name = "Jane Doe", City = "Las Vegas", PhoneNumber = "3453455433", ID= GetNewID() };
 
             PersonList.Add(p1);
             PersonList.Add(p2);
@@ -43,7 +42,8 @@ namespace MVCWebApp.Models.Person
                     }
                     else
                     {
-                        if (item.Name.Contains(searchTerm.ToLowerInvariant()) || item.City.Contains(searchTerm.ToLowerInvariant()))
+                        if (item.Name.ToLowerInvariant().Contains(searchTerm.ToLowerInvariant()) ||
+                            item.City.ToLowerInvariant().Contains(searchTerm.ToLowerInvariant()))
                         {
                             searchList.Add(item);
                         }

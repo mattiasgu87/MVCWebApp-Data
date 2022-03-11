@@ -24,14 +24,6 @@ namespace MVCWebApp.Controllers
 
             return View(model);
         }
-        //[HttpGet]
-        //public IActionResult Index(List<Person> list)
-        //{
-        //    CombinedPersonViewModel model = new CombinedPersonViewModel();
-        //    model.PersonList = list;
-
-        //    return View(model);
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -61,7 +53,7 @@ namespace MVCWebApp.Controllers
             return View(nameof(Index), model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Search(SearchPersonViewModel searchOptions)
         {
 
@@ -71,7 +63,7 @@ namespace MVCWebApp.Controllers
             return View(nameof(Index), model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult SortByCity(SortOptionsViewModel sortOptions)
         {
             CombinedPersonViewModel model = new CombinedPersonViewModel();
@@ -81,7 +73,7 @@ namespace MVCWebApp.Controllers
             return View(nameof(Index), model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult SortByName(SortOptionsViewModel sortOptions)
         {
             CombinedPersonViewModel model = new CombinedPersonViewModel();

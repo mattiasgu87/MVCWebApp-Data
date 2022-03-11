@@ -20,6 +20,7 @@ namespace MVCWebApp.Models.Person.ViewModels
         [RegularExpression(@"[\d]+\-?[\d]+", 
             ErrorMessage = "Please enter a valid phone number! Only numbers and at most one '-'")]
         [StringLength(15, MinimumLength = 7)]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
         public CreatePersonViewModel() {}
