@@ -7,6 +7,8 @@
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/Content/StyleSheet.css")" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/Content/js/ajaxscript.js"></script>
 </head>
 <body>
     <header>
@@ -22,10 +24,13 @@
                 @Html.ActionLink("Contact", "Contact", "Home")
             </li>
             <li class="linavigation">
-            @Html.ActionLink("Projects", "Projects", "Home")
-            </li>    
+                @Html.ActionLink("Projects", "Projects", "Home")
+            </li>
             <li class="linavigation">
                 @Html.ActionLink("Person", "Index", "Person")
+            </li>
+            <li class="linavigation">
+                @Html.ActionLink("Ajax", "Index", "Ajax")
             </li>
         </ul>
     </header>

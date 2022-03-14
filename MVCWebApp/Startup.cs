@@ -63,6 +63,12 @@ namespace MVCWebApp
                     name: "Personlist",
                     pattern: "Personlist",
                     defaults: new { controller = "Person", action = "Index" });
+
+                //AjaxPerson route
+                endpoints.MapControllerRoute(
+                    name: "Personlist",
+                    pattern: "Personlist",
+                    defaults: new { controller = "AjaxController", action = "Index" });
             });
 
         }

@@ -9,6 +9,7 @@ namespace MVCWebApp.Models.Person
     public interface IPersonRepository
     {
         public List<Person> GetAllPersons();
+        public Person GetPerson(int id);
         public Person Add(CreatePersonViewModel createPersonViewModel);
         public bool Delete(int id);
         public List<Person> Search(string searchTerm, bool caseSensitive);

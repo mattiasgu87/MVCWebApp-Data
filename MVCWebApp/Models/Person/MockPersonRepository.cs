@@ -25,6 +25,11 @@ namespace MVCWebApp.Models.Person
             return PersonList;
         }
 
+        public Person GetPerson(int id)
+        {
+            return PersonList.SingleOrDefault(c => c.ID == id);
+        }
+
         public List<Person> Search(string searchTerm, bool caseSensitive)
         {
             List<Person> searchList = new List<Person>();
