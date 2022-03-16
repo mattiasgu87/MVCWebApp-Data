@@ -16,7 +16,5 @@ namespace MVCWebApp.Models.Person
         public string City { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-
-        public Person() { ID = 0; }
     }
 }
