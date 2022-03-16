@@ -32,12 +32,20 @@ namespace MVCWebApp.Models.Person
 
             if (searchTerm != null)
             {
-                if(caseSensitive)
+                if (caseSensitive)
                 {
                     IEnumerable<Person> searchList2 = from Person in _context.People
-                                                where Person.City.Contains(searchTerm)
-                                                select Person;
-                    searchList = searchList2.ToList();
+                                                      where Person.Name.Contains(searchTerm) || Person.City.Contains(searchTerm)
+                                                      select Person;
+
+                    //cheat case sensitive
+                    foreach (Person item in searchList2)
+                    {
+                        if (item.Name.Contains(searchTerm) || item.City.Contains(searchTerm))
+                        {
+                            searchList.Add(item);
+                        }
+                    }
                 }
                 else
                 {
