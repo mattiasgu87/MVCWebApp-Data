@@ -5,12 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220317171504_Added seeded data to Person, City and Country.cs" />
+    <Compile Remove="Migrations\20220317171504_Added seeded data to Person, City and Country.Designer.cs" />
+    <Compile Remove="Migrations\20220317180507_Added seeded data to Person, City and Country.cs" />
+    <Compile Remove="Migrations\20220317180507_Added seeded data to Person, City and Country.Designer.cs" />
+    <Compile Remove="Migrations\20220317181106_Added seeded data to Person, City and Country.cs" />
+    <Compile Remove="Migrations\20220317181106_Added seeded data to Person, City and Country.Designer.cs" />
+    <Compile Remove="Migrations\20220317181209_Added seeded data to Person, City and Country.cs" />
+    <Compile Remove="Migrations\20220317181209_Added seeded data to Person, City and Country.Designer.cs" />
+    <Compile Remove="Migrations\20220317181538_Added seeded data to Person, City and Country.cs" />
+    <Compile Remove="Migrations\20220317181538_Added seeded data to Person, City and Country.Designer.cs" />
+    <Compile Remove="Migrations\20220317184240_Removed seeding.cs" />
+    <Compile Remove="Migrations\20220317184240_Removed seeding.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Content\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.23">
       <PrivateAssets>all</PrivateAssets>

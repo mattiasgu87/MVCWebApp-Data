@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MVCWebApp.Data;
 using MVCWebApp.Models.Person;
 using MVCWebApp.Models.Person.ViewModels;
 using System;
@@ -11,9 +13,11 @@ namespace MVCWebApp.Controllers
     public class PersonController : Controller
     {
         private readonly IPersonRepository _personRepository;
+        public readonly ApplicationDbContext _context;
 
-        public PersonController(IPersonRepository personRepository)
+        public PersonController(ApplicationDbContext context, IPersonRepository personRepository)
         {
+            _context = context;
             _personRepository = personRepository;
         }
 
@@ -21,6 +25,7 @@ namespace MVCWebApp.Controllers
         {
             CombinedPersonViewModel model = new CombinedPersonViewModel();
             model.PersonList = _personRepository.GetAllPersons();
+            model.CityList = new SelectList(_context.Cities, "ID", "CityName");
 
             return View(model);
         }
@@ -39,6 +44,7 @@ namespace MVCWebApp.Controllers
 
             CombinedPersonViewModel model = new CombinedPersonViewModel();
             model.PersonList = _personRepository.GetAllPersons();
+            model.CityList = new SelectList(_context.Cities, "ID", "CityName");
 
             return View(nameof(Index), model);
         }
@@ -49,6 +55,7 @@ namespace MVCWebApp.Controllers
 
             CombinedPersonViewModel model = new CombinedPersonViewModel();
             model.PersonList = _personRepository.GetAllPersons();
+            model.CityList = new SelectList(_context.Cities, "CityName", "CityName");
 
             return View(nameof(Index), model);
         }
@@ -58,7 +65,8 @@ namespace MVCWebApp.Controllers
         {
 
             CombinedPersonViewModel model = new CombinedPersonViewModel();
-            model.PersonList = _personRepository.Search(searchOptions.SearchTerm, searchOptions.CaseSensitive);          
+            model.PersonList = _personRepository.Search(searchOptions.SearchTerm, searchOptions.CaseSensitive);
+            model.CityList = new SelectList(_context.Cities, "CityName", "CityName");
 
             return View(nameof(Index), model);
         }
@@ -69,6 +77,7 @@ namespace MVCWebApp.Controllers
             CombinedPersonViewModel model = new CombinedPersonViewModel();
 
             model.PersonList = _personRepository.Sort(sortOptions, "city");
+            model.CityList = new SelectList(_context.Cities, "CityName", "CityName");
 
             return View(nameof(Index), model);
         }
@@ -79,6 +88,7 @@ namespace MVCWebApp.Controllers
             CombinedPersonViewModel model = new CombinedPersonViewModel();
 
             model.PersonList = model.PersonList = _personRepository.Sort(sortOptions, "name");
+            model.CityList = new SelectList(_context.Cities, "CityName", "CityName");
 
             return View(nameof(Index), model);
         }

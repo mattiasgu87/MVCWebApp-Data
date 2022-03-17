@@ -18,6 +18,7 @@ namespace MVCWebApp.Models.Person
 
         public List<Person> GetAllPersons()
         {
+            _context.Countries.ToList();
             return _context.People.ToList();
         }
 
@@ -35,13 +36,13 @@ namespace MVCWebApp.Models.Person
                 if (caseSensitive)
                 {
                     IEnumerable<Person> searchList2 = from Person in _context.People
-                                                      where Person.Name.Contains(searchTerm) || Person.City.Contains(searchTerm)
+                                                      where Person.Name.Contains(searchTerm) || Person.City.CityName.Contains(searchTerm)
                                                       select Person;
 
                     //cheat case sensitive
                     foreach (Person item in searchList2)
                     {
-                        if (item.Name.Contains(searchTerm) || item.City.Contains(searchTerm))
+                        if (item.Name.Contains(searchTerm) || item.City.CityName.Contains(searchTerm))
                         {
                             searchList.Add(item);
                         }
@@ -49,7 +50,7 @@ namespace MVCWebApp.Models.Person
                 }
                 else
                 {
-                    searchList = _context.People.Where(p => p.City.Contains(searchTerm) ||
+                    searchList = _context.People.Where(p => p.City.CityName.Contains(searchTerm) ||
                                                     p.Name.Contains(searchTerm)).ToList();
                 }
             }
@@ -83,8 +84,17 @@ namespace MVCWebApp.Models.Person
         {
             Person person = new Person();
             person.Name = createPersonViewModel.Name;
-            person.City = createPersonViewModel.City;
+            City.City city = _context.Cities.Find(createPersonViewModel.City);
+            person.City = city;
             person.PhoneNumber = createPersonViewModel.PhoneNumber;
+                 
+            if (city.People == null)
+            {
+                city.People = new List<Person>();
+            }
+            city.People.Add(person);
+
+            _context.Update(city);
 
             _context.People.Add(person);
             _context.SaveChanges();

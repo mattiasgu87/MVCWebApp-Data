@@ -13,8 +13,7 @@ namespace MVCWebApp.Models.Person.ViewModels
         public string Name { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 2)]
-        public string City { get; set; }
+        public int City { get; set; }
 
         [Required]
         [RegularExpression(@"[\d]+\-?[\d]+", 
@@ -25,11 +24,11 @@ namespace MVCWebApp.Models.Person.ViewModels
 
         public CreatePersonViewModel() {}
 
-        public CreatePersonViewModel(string name, string city, string pNumber)
-        {
-            Name = name;
-            City = city;
-            PhoneNumber = pNumber;
-        }
+        //public CreatePersonViewModel(string name, string city, string pNumber)
+        //{
+        //    Name = name;
+        //    City = city;
+        //    PhoneNumber = pNumber;
+        //}
     }
 }

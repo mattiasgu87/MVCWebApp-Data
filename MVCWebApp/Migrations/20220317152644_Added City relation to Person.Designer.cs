@@ -3,14 +3,16 @@ using MVCWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVCWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220317152644_Added City relation to Person")]
+    partial class AddedCityrelationtoPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,34 +31,14 @@ namespace MVCWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CountryForeignKey")
+                    b.Property<string>("CountryName")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CountryForeignKey");
+                    b.HasIndex("CountryName");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CityName = "Stockholm",
-                            CountryForeignKey = "Sverige"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CityName = "Oslo",
-                            CountryForeignKey = "Norge"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            CityName = "Köpenhamn",
-                            CountryForeignKey = "Danmark"
-                        });
                 });
 
             modelBuilder.Entity("MVCWebApp.Models.Country.Country", b =>
@@ -79,7 +61,7 @@ namespace MVCWebApp.Migrations
                         },
                         new
                         {
-                            CountryName = "Danmark"
+                            CountryName = "Damnark"
                         });
                 });
 
@@ -90,7 +72,7 @@ namespace MVCWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityForeignKey")
+                    b.Property<int>("CityID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -103,46 +85,23 @@ namespace MVCWebApp.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CityForeignKey");
+                    b.HasIndex("CityID");
 
                     b.ToTable("People");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CityForeignKey = 1,
-                            Name = "Jens Jensson",
-                            PhoneNumber = "123456789"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            CityForeignKey = 2,
-                            Name = "Anna Andersson",
-                            PhoneNumber = "987654321"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            CityForeignKey = 3,
-                            Name = "Sven Svensson",
-                            PhoneNumber = "123123123"
-                        });
                 });
 
             modelBuilder.Entity("MVCWebApp.Models.City.City", b =>
                 {
                     b.HasOne("MVCWebApp.Models.Country.Country", "Country")
                         .WithMany("Cities")
-                        .HasForeignKey("CountryForeignKey");
+                        .HasForeignKey("CountryName");
                 });
 
             modelBuilder.Entity("MVCWebApp.Models.Person.Person", b =>
                 {
                     b.HasOne("MVCWebApp.Models.City.City", "City")
                         .WithMany("People")
-                        .HasForeignKey("CityForeignKey")
+                        .HasForeignKey("CityID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

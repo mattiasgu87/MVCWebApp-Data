@@ -31,7 +31,8 @@ namespace MVCWebApp
             services.AddMvc();
 
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options => options.UseLazyLoadingProxies().
+                UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IProjectRepository, MockProjectRepository>(); //add repository
             services.AddScoped<IPersonRepository, PersonRepository>(); //add repository
