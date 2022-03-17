@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCWebApp.Data;
+using MVCWebApp.Models.City;
 using MVCWebApp.Models.Country;
+using MVCWebApp.Models.Person;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,29 @@ namespace MVCWebApp.Controllers
             model.CountryList = _context.Countries.ToList();
 
             return View(nameof(Index), model);
+        }
+
+        public IActionResult Delete(string id)
+        {
+            Country countryToDelete = _context.Countries.Find(id);
+
+            if(countryToDelete != null)
+            {
+                foreach (City city in countryToDelete.Cities)
+                {
+                    foreach (Person person in city.People)
+                    {
+                        _context.People.Remove(person);
+                    }
+
+                    _context.Cities.Remove(city);
+                }
+
+                _context.Countries.Remove(countryToDelete);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

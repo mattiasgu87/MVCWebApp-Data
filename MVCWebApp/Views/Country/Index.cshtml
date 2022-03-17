@@ -19,12 +19,26 @@
     </div>
 </div>
 
+<div class="row align-items-start">
+    <div class="col">
+        <h4>Country Name</h4>
+    </div>
+
+    <div class="col">
+        <h4>Action</h4>
+    </div>
+</div>
+
 @foreach (var item in Model.CountryList)
 {
 <div class="row align-items-start">
 
     <div class="col">
         <p>@item.CountryName</p>
+    </div>
+
+    <div class="col">
+        <a asp-action="Delete" asp-route-id="@item.CountryName" class="btn btn-danger">Delete</a>
     </div>
 
 </div>
