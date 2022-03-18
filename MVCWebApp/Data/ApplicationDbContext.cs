@@ -84,7 +84,9 @@ namespace MVCWebApp.Data
 
             //seeding peoplelanguages
             modelBuilder.Entity<PersonLanguage>().HasData(
-                new PersonLanguage { PersonId = 1, LanguageName = "Franska" });
+                new PersonLanguage { PersonId = 1, LanguageName = "Franska" },
+                new PersonLanguage { PersonId = 2, LanguageName = "Polska" },
+                new PersonLanguage { PersonId = 3, LanguageName = "Italienska" });
             #endregion
         }
     }
