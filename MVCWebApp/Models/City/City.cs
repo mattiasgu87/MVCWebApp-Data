@@ -12,6 +12,7 @@ namespace MVCWebApp.Models.City
         public int ID { get; set; }
         [Required]
         public string CityName { get; set; }
+        [Required]
         public virtual Country.Country Country { get; set; }
 
         public virtual List<Person.Person> People { get; set; }

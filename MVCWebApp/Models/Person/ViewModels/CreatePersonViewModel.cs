@@ -23,12 +23,5 @@ namespace MVCWebApp.Models.Person.ViewModels
         public string PhoneNumber { get; set; }
 
         public CreatePersonViewModel() {}
-
-        //public CreatePersonViewModel(string name, string city, string pNumber)
-        //{
-        //    Name = name;
-        //    City = city;
-        //    PhoneNumber = pNumber;
-        //}
     }
 }

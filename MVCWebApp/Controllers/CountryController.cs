@@ -32,13 +32,21 @@ namespace MVCWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Country country = new Country();
-                country.CountryName = CreateViewModel.CountryName;
+                if(_context.Countries.Find(CreateViewModel.CountryName) == null)
+                {
+                    Country country = new Country();
+                    country.CountryName = CreateViewModel.CountryName;
 
-                _context.Countries.Add(country);
-                _context.SaveChanges();
+                    _context.Countries.Add(country);
+                    _context.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    //error message-> change to partial view?
+                    return Content("Country already exists");
+                }
             }
 
             CombinedCountryViewModel model = new CombinedCountryViewModel();

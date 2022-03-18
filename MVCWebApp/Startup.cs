@@ -30,6 +30,7 @@ namespace MVCWebApp
         {
             services.AddMvc();
 
+            //added lazy loading proxies because of null values during runtime in people/city lists
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseLazyLoadingProxies().
                 UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

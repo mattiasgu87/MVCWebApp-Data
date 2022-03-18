@@ -25,7 +25,7 @@ namespace MVCWebApp.Controllers
         {
             CombinedPersonViewModel model = new CombinedPersonViewModel();
             model.PersonList = _personRepository.GetAllPersons();
-            model.CityList = new SelectList(_context.Cities, "ID", "CityName");
+            model.CityList = new SelectList(_context.Cities.OrderBy(c => c.CityName), "ID", "CityName");
 
             return View(model);
         }

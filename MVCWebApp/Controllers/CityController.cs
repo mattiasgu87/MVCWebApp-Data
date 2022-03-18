@@ -34,25 +34,30 @@ namespace MVCWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                City city = new City();
-                city.CityName = CreateCityViewModel.CityName;
-                Country country = _context.Countries.Find(CreateCityViewModel.CountryName);
-                if(country.Cities == null)
+                if (_context.Countries.Find(CreateCityViewModel.CountryName).Cities.Find(c => c.CityName == CreateCityViewModel.CityName) == null)
                 {
-                    country.Cities = new List<City>();
+                    City city = new City();
+                    city.CityName = CreateCityViewModel.CityName;
+                    Country country = _context.Countries.Find(CreateCityViewModel.CountryName);
+
+                    city.Country = country;
+                    country.Cities.Add(city);
+
+                    _context.Update(country);
+                    _context.Add(city);
+                    _context.SaveChanges();
+
+                    return RedirectToAction(nameof(Index));
                 }
-                city.Country = country;
-                country.Cities.Add(city);             
-
-                _context.Update(country);
-                _context.Add(city);
-                _context.SaveChanges();
-
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    //error message-> change to partial view?
+                    return Content("City already exists");
+                }
             }
 
             CombinedCityViewModel model = new CombinedCityViewModel();
-            model.CityList = _context.Cities.ToList();
+            model.CityList = _context.Cities.OrderBy(c => c.Country).ToList();
             model.CountryList = new SelectList(_context.Countries, "CountryName", "CountryName");
 
             return View(nameof(Index), model);

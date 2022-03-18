@@ -22,81 +22,38 @@ namespace MVCWebApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Foreign key shadow properties
             modelBuilder.Entity<City>()
                 .Property<string>("CountryForeignKey");
-
             modelBuilder.Entity<Person>()
                 .Property<int>("CityForeignKey");
 
-            // configures one-to-many relationship City-Country
+            //Configures one-to-many relationship City-Country
             modelBuilder.Entity<City>()
                 .HasOne(c => c.Country)
                 .WithMany(co => co.Cities)
             .HasForeignKey("CountryForeignKey");
 
+            //Configures one-to-many relationship Person-City
             modelBuilder.Entity<Person>()
                 .HasOne(p => p.City)
                 .WithMany(c => c.People)
-            .HasForeignKey("CityForeignKey");
-
-            //seeding
-
-            //Countries
-            //Country sverige = new Country();
-            //sverige.CountryName = "Sverige";
-            //sverige.Cities = new List<City>();
-            //List<City> testcities = new List<City>();
-            //testcities.Add(new City { ID = 1, CityName
-
-            //modelBuilder.Entity<Country>().HasData(new Country { CountryName = "Norge", Cities = new List<City>(});
-            //modelBuilder.Entity<Country>().HasData(new Country { CountryName = "Damnark" });
-
-            //cities
-            //City stockholm = new City();
-            //stockholm.ID = 1;
-            //stockholm.CityName = "Stockholm";
-            //stockholm.Country = sverige;
-            //stockholm.People = new List<Person>();           
-
-            //modelBuilder.Entity<City>().HasData(new City { ID = 1, CityName = "Göteborg", Country = sverige});
-            //modelBuilder.Entity<City>().HasData(new City { ID = 2, CityName = "Stockholm" });
-            //modelBuilder.Entity<City>().HasData(new City { ID = 3, CityName = "Malmö" });
-
-            //people
-            //Person per = new Person();
-            //per.ID = 1;
-            //per.Name = "Per Persson";
-            ////per.City = stockholm;
-            //per.PhoneNumber = "2131233212";
-
-            //modelBuilder.Entity<Person>().HasData(new Person { ID = 1, Name = "Sten Stensson", City = "Stenstorp", PhoneNumber = "0743345431" });
-            //modelBuilder.Entity<Person>().HasData(new Person { ID = 2, Name = "Anna Aronsson", City = "Arboga", PhoneNumber = "0743345412" });
-            //modelBuilder.Entity<Person>().HasData(new Person { ID = 3, Name = "Jens Falk", City = "Stockholm", PhoneNumber = "0743345444" });
-
-            //Add people relations
-            //stockholm.People.Add(per);
-
-            ////add city relations
-            //sverige.Cities.Add(stockholm);
-
-
-
-            //modelBuilder.Entity<Country>().HasData(sverige);
-            //modelBuilder.Entity<City>().HasData(stockholm);
-            //modelBuilder.Entity<Person>().HasData(per);
-
+            .HasForeignKey("CityForeignKey");     
 
             #region seeding
+            //seeding countries
             modelBuilder.Entity<Country>().HasData(
                 new Country { CountryName = "Sverige" },
                 new Country { CountryName = "Norge" },
                 new Country { CountryName = "Danmark" });
 
+            //seeding cities
             modelBuilder.Entity<City>().HasData(
             new { ID = 1, CityName = "Stockholm", CountryForeignKey = "Sverige" },
             new { ID = 2, CityName = "Oslo", CountryForeignKey = "Norge" },
             new { ID = 3, CityName = "Köpenhamn", CountryForeignKey = "Danmark" });
 
+            //seeding people
             modelBuilder.Entity<Person>().HasData(
                 new { ID = 1, Name = "Jens Jensson", PhoneNumber = "123456789", CityForeignKey = 1 },
                 new { ID = 2, Name = "Anna Andersson", PhoneNumber = "987654321", CityForeignKey = 2 },

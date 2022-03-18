@@ -40,7 +40,7 @@ namespace MVCWebApp.Models.Person
                                                       select Person)
                                                       .ToList();
 
-                    //cheat case sensitive
+                    //cheat solution case sensitive (database is case insensitive)
                     foreach (Person item in searchList2)
                     {
                         if (item.Name.Contains(searchTerm) || item.City.CityName.Contains(searchTerm))
@@ -51,6 +51,7 @@ namespace MVCWebApp.Models.Person
                 }
                 else
                 {
+                    //different way of getting list
                     searchList = _context.People.Where(p => p.City.CityName.Contains(searchTerm) ||
                                                     p.Name.Contains(searchTerm)).ToList();
                 }
@@ -85,18 +86,13 @@ namespace MVCWebApp.Models.Person
         {
             Person person = new Person();
             person.Name = createPersonViewModel.Name;
-            City.City city = _context.Cities.Find(createPersonViewModel.City);
-            person.City = city;
             person.PhoneNumber = createPersonViewModel.PhoneNumber;
-                 
-            if (city.People == null)
-            {
-                city.People = new List<Person>();
-            }
+            City.City city = _context.Cities.Find(createPersonViewModel.City);
+            person.City = city;               
+
             city.People.Add(person);
 
             _context.Update(city);
-
             _context.People.Add(person);
             _context.SaveChanges();
 

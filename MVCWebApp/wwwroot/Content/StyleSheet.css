@@ -68,3 +68,8 @@ tr.person:nth-child(even) {
 .ajax-buttons {
     margin: 10px;
 }
+
+.create-buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
