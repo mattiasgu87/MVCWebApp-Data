@@ -8,7 +8,6 @@ namespace MVCWebApp.Models.Country
     public class CombinedCountryViewModel
     {
         public IEnumerable<Country> CountryList { get; set; }
-
         public CountryViewModel CreateViewModel { get; set; }
     }
 }

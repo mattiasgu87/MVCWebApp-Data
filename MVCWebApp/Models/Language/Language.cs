@@ -4,21 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCWebApp.Models.Person
+namespace MVCWebApp.Models.Language
 {
-    public class Person
+    public class Language
     {
         [Key]
-        public int ID { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public virtual City.City City { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
+        [StringLength(20, MinimumLength = 2)]
+        public string LanguageName { get; set; }
+
         public virtual List<PersonLanguage> PersonLanguages { get; set; }
 
-        public Person()
+        public Language()
         {
             PersonLanguages = new List<PersonLanguage>();
         }

@@ -17,6 +17,20 @@
     <Compile Remove="Migrations\20220317181538_Added seeded data to Person, City and Country.Designer.cs" />
     <Compile Remove="Migrations\20220317184240_Removed seeding.cs" />
     <Compile Remove="Migrations\20220317184240_Removed seeding.Designer.cs" />
+    <Compile Remove="Migrations\20220318160607_Added seeded data to Language and PersonLanguage.cs" />
+    <Compile Remove="Migrations\20220318160607_Added seeded data to Language and PersonLanguage.Designer.cs" />
+    <Compile Remove="Migrations\20220318161131_Added seeded data to Language and PersonLanguage.cs" />
+    <Compile Remove="Migrations\20220318161131_Added seeded data to Language and PersonLanguage.Designer.cs" />
+    <Compile Remove="Migrations\20220318161610_Added seeded data to Language and PersonLanguage.cs" />
+    <Compile Remove="Migrations\20220318161610_Added seeded data to Language and PersonLanguage.Designer.cs" />
+    <Compile Remove="Migrations\20220318163913_Added seeded data to Language.cs" />
+    <Compile Remove="Migrations\20220318163913_Added seeded data to Language.Designer.cs" />
+    <Compile Remove="Migrations\20220318164402_Added seeded data to Language and PersonLanguage.cs" />
+    <Compile Remove="Migrations\20220318164402_Added seeded data to Language and PersonLanguage.Designer.cs" />
+    <Compile Remove="Migrations\20220318170449_Added seeded data to Language and PersonLanguage.cs" />
+    <Compile Remove="Migrations\20220318170449_Added seeded data to Language and PersonLanguage.Designer.cs" />
+    <Compile Remove="Migrations\20220318171111_Added seeded data to Language.cs" />
+    <Compile Remove="Migrations\20220318171111_Added seeded data to Language.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

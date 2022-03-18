@@ -3,14 +3,16 @@ using MVCWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVCWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220318103759_Added tables Languages and PersonLanguages to database")]
+    partial class AddedtablesLanguagesandPersonLanguagestodatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,20 +94,6 @@ namespace MVCWebApp.Migrations
                     b.HasKey("LanguageName");
 
                     b.ToTable("Languages");
-
-                    b.HasData(
-                        new
-                        {
-                            LanguageName = "Franska"
-                        },
-                        new
-                        {
-                            LanguageName = "Polska"
-                        },
-                        new
-                        {
-                            LanguageName = "Italienska"
-                        });
                 });
 
             modelBuilder.Entity("MVCWebApp.Models.Person.Person", b =>
@@ -169,13 +157,6 @@ namespace MVCWebApp.Migrations
                     b.HasIndex("LanguageName");
 
                     b.ToTable("PersonLanguages");
-
-                    b.HasData(
-                        new
-                        {
-                            PersonId = 1,
-                            LanguageName = "Franska"
-                        });
                 });
 
             modelBuilder.Entity("MVCWebApp.Models.City.City", b =>
