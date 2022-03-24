@@ -1,21 +1,35 @@
-﻿@model PersonLanguage
+﻿@model PersonLanguagesViewModel
 
 @{ ViewData["Title"] = "Show Person Languages"; }
 <h1>Show Person Languages</h1>
 
 <div class="form-group">
     <div class="col">
-        <p>@ViewBag.Person</p>
-    </div>
-
-    <div class="col">
-        <p>Languages this person knows:</p>
-        <select asp-for="LanguageName" class="form-control" asp-items="ViewBag.Languages"></select>
+        <p class="h4">@Model.PersonName knows these languages:</p>
     </div>
 </div>
 
-@*@foreach (Language lang in Model.Languages)
-    {
-    <div class="row align-items-start">
+<div class="row align-items-start">
+    <div class="col">
+        <h4>Language name</h4>
+    </div>
+
+    <div class="col">
+        <h4>Action</h4>
+    </div>
+</div>
+
+@foreach (Language lang in Model.Languages)
+{
+<div class="row align-items-start">
+
+    <div class="col">
         <p>@lang.LanguageName</p>
-    </div>}*@
+    </div>
+
+    <div class="col">
+        <p>Remove</p>
+    </div>
+
+</div>
+}

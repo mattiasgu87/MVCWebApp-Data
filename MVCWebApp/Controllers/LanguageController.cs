@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCWebApp.Data;
+using MVCWebApp.Models;
 using MVCWebApp.Models.Language;
 using MVCWebApp.Models.Language.ViewModels;
 using System;
@@ -27,6 +28,7 @@ namespace MVCWebApp.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateLanguageViewModel CreateViewModel)
         {
             if (ModelState.IsValid)
@@ -43,8 +45,11 @@ namespace MVCWebApp.Controllers
                 }
                 else
                 {
-                    //error message-> change to partial view?
-                    return Content("Language already exists");
+                    //todo - improve in Identity assigment
+                    MessageViewModel messageModel = new MessageViewModel();
+                    messageModel.Message = "Language already exists!";
+
+                    return View("MessageView", messageModel);
                 }
             }
 

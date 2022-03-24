@@ -30,69 +30,78 @@ namespace MVCWebApp.Controllers
             model.CityList = new SelectList(_context.Cities.OrderBy(c => c.CityName), "ID", "CityName");
 
             return View(model);
+        }       
+
+        public IActionResult ShowLanguages(int id)
+        {
+            Person person = _context.People.Find(id);         
+
+            PersonLanguagesViewModel model = new PersonLanguagesViewModel();
+
+            model.PersonName = person.Name;
+            model.PersonId = person.ID;
+
+            foreach (PersonLanguage lan in person.PersonLanguages)
+            {
+                model.Languages.Add(lan.Language);
+            }                      
+
+            return View(model);
         }
 
         public IActionResult AddLanguage()
         {
-            ViewData["PersonId"] = new SelectList(_context.People, "ID", "Name");
-            ViewData["LanguageName"] = new SelectList(_context.Languages, "LanguageName", "LanguageName");
+            AddLanguageViewModel model = new AddLanguageViewModel();
+            model.PersonIdList = new SelectList(_context.People, "ID", "Name");
+            model.LanguageNameList = new SelectList(_context.Languages, "LanguageName", "LanguageName");
 
-            return View();
-        }
-
-        public IActionResult ShowLanguages(int id)
-        {          
-            List<Language> languages = new List<Language>();
-
-            foreach (PersonLanguage lan in _context.People.Find(id).PersonLanguages)
-            {
-                languages.Add(lan.Language); //old
-            }
-
-            //LanguageListViewModel model = new LanguageListViewModel();
-            //model.Languages = languages;
-
-
-            ViewData["Person"] = new string(_context.People.Find(id).Name);
-            ViewData["Languages"] = new SelectList(languages, "LanguageName", "LanguageName");
-
-            return View();
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddPersonLanguage(PersonLanguage  personLanguage)
-        {
-            Language language = _context.Languages.Find(personLanguage.LanguageName);
-            Person person = _context.People.Find(personLanguage.PersonId);
+        public IActionResult AddPersonLanguage(AddLanguageViewModel AddViewModel)
+        {          
+            Person person = _context.People.Find(AddViewModel.PersonId);
 
-            bool exists = false;
+            bool knowsLanguage = false;
             foreach (PersonLanguage pl in person.PersonLanguages)
             {
-                if (pl.LanguageName == personLanguage.LanguageName)
+                if (pl.LanguageName == AddViewModel.LanguageName)
                 { 
-                    exists = true;
+                    knowsLanguage = true;
                     break;
                 }
             }         
 
-            if(exists == false)
+            if(knowsLanguage == false)
             {
-                person.PersonLanguages.Add(personLanguage);
-                language.PersonLanguages.Add(personLanguage);
+                Language language = _context.Languages.Find(AddViewModel.LanguageName);
 
-                _context.PersonLanguages.Add(personLanguage);
+                PersonLanguage personlanguage = new PersonLanguage();
+                personlanguage.PersonId = AddViewModel.PersonId;
+                personlanguage.LanguageName = AddViewModel.LanguageName;
+
+                person.PersonLanguages.Add(personlanguage);
+                language.PersonLanguages.Add(personlanguage);
+
+                _context.PersonLanguages.Add(personlanguage);
 
                 _context.People.Update(person);
                 _context.Languages.Update(language);
 
                 _context.SaveChanges();
 
+                PersonLanguage test = _context.PersonLanguages.First();
+
                 return RedirectToAction("Index");
             }
             else
             {
-                //error message-> change to partial view? Viewbag?
-                return Content("Person already knows that language");
+                //todo - improve in Identity assigment
+                MessageViewModel messageModel = new MessageViewModel();
+                messageModel.Message = "Person already knows that language!";
+
+                return View("MessageView", messageModel);
             }
 
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCWebApp.Data;
+using MVCWebApp.Models;
 using MVCWebApp.Models.City;
 using MVCWebApp.Models.Country;
 using MVCWebApp.Models.Person;
@@ -44,8 +45,11 @@ namespace MVCWebApp.Controllers
                 }
                 else
                 {
-                    //error message-> change to partial view?
-                    return Content("Country already exists");
+                    //todo - improve in Identity assigment
+                    MessageViewModel messageModel = new MessageViewModel();
+                    messageModel.Message = "Country already exists!";
+
+                    return View("MessageView", messageModel);
                 }
             }
 

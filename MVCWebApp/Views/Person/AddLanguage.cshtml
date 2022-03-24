@@ -1,4 +1,4 @@
-﻿@model PersonLanguage
+﻿@model AddLanguageViewModel
 
 @{ ViewData["Title"] = "Add Language to Person"; }
 <h1>Add Language View</h1>
@@ -6,11 +6,11 @@
 <form asp-action="AddPersonLanguage" method="post">
     <div class="form-group">
         <label asp-for="PersonId" class="control-label"></label>
-        <select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
+        <select asp-for="PersonId" class="form-control" asp-items="Model.PersonIdList"></select>
     </div>
     <div class="form-group">
         <label asp-for="LanguageName" class="control-label"></label>
-        <select asp-for="LanguageName" class="form-control" asp-items="ViewBag.LanguageName"></select>
+        <select asp-for="LanguageName" class="form-control" asp-items="Model.LanguageNameList"></select>
     </div>
     <input type="submit" value="Create" class="btn btn-primary" />
 </form>
